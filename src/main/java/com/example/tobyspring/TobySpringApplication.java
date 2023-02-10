@@ -26,6 +26,9 @@ import java.io.IOException;
  * 스프링 컨테이너는 오브젝트를 딱 한번만 만든다.
  * - SingleTon 과 비슷한 형태를 갖는다.
  * - 컨트롤러는 웹 컨트롤러 이기 떄문에 웹을 통해 들어온 데이터를 검증하고 비즈니스 로직 객체한테 데이터를 요청하여 받은 뒤 반환한다.
+ *
+ * Dependency - Injection
+ *  -
  */
 @SpringBootApplication
 public class TobySpringApplication {
@@ -33,8 +36,11 @@ public class TobySpringApplication {
     public static void main(String[] args) {
         GenericApplicationContext applicationContext = new GenericApplicationContext();
 
-        //빈등록
+        // 빈으로 등록하면  스프링 컨테이너에 등록된다.
+        // 빈으로 등록된 클래스들을 어덯게 의존성을 채워줄까?
+        //      -  컨테이너에서 찾아서 등록해준다.
         applicationContext.registerBean(HelloController.class);
+        applicationContext.registerBean(SimpleHelloService.class);
         applicationContext.refresh();
 
         ServletWebServerFactory webServer = new TomcatServletWebServerFactory();
