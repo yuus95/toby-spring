@@ -37,7 +37,11 @@ public class TobySpringApplication {
                 @Override
                 protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
                     String name = req.getParameter("name");
+                    // 웹 요청을 읽어서 조건문을 이용해 해당 컴포넌트에 매핑을 해줘야 한다.
                     if (req.getRequestURI().equals("/hello") && req.getMethod().equals(HttpMethod.GET.name())) {
+
+                        // 중복된 코드가 들어간다.
+                        // getWriter().prinltn() 메소드는 항상 호출이 되기 때문에 중복이 된다.
                         resp.setStatus(200);
                         resp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.ALL_VALUE);
                         resp.setHeader(HttpHeaders.ACCEPT_ENCODING, Encoding.DEFAULT_CHARSET.displayName());
