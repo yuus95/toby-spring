@@ -1,34 +1,39 @@
 package com.example.tobyspring;
 
-import org.apache.catalina.core.ApplicationContext;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.boot.web.servlet.server.Encoding;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
-import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.web.context.support.GenericWebApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
- * 문제점
- * - 하드코딩된 매핑 작업 매번 URI 조건 분기점을 만들어야 되는가?
- * - 파라미터 바인딩을 직접 해줘야 하는가?
- * -
+ * 자바 어노테이션을 이용하여 스프링 구성요소를 등록
+ *
+ * configuration : 빈 객체를 등록하게 해준다.
+ *
+ * @Bean: indicates that a method produces a bean to be managed by the Spring container.
+ *          - 스프링 컨테이너에서 관리되는 빈이라고 명시해준다.
+ *
+ * AnnotationConfigWebApplicationContext: register 메소드를 이용하여 configuration 어노테이션을 인지한다.
  */
+@Configuration
 public class TobySpringApplication {
+
+    @Bean
+    public HelloController helloController(HelloService helloService) {
+        return new HelloController(helloService);
+    }
+
+    @Bean
+    public HelloService helloService() {
+        return new SimpleHelloService();
+    }
+
     public static void main(String[] args) {
         // onRefresh
-        GenericWebApplicationContext applicationContext = new GenericWebApplicationContext() {
+        AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext() {
             @Override
             protected void onRefresh() {
                 super.onRefresh();
@@ -39,9 +44,8 @@ public class TobySpringApplication {
                 ).addMapping("/*")).start();
             }
         };
-
-        applicationContext.registerBean(HelloController.class);
-        applicationContext.registerBean(SimpleHelloService.class);
+        // Register one or more component classes to be processed.
+        applicationContext.register(TobySpringApplication.class);
 
         applicationContext.refresh();
     }
