@@ -1,5 +1,6 @@
 package com.example.tobyspring;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
@@ -11,6 +12,7 @@ import java.util.Objects;
  * ResponseBody 어노테이션이 없을 경우 바디에 값을 넣지 않고 VIEW 값을 반환한다.
  */
 @RequestMapping
+@Component
 public class HelloController {
     private final HelloService helloService;
 
