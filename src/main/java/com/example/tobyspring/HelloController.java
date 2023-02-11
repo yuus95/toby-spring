@@ -20,8 +20,6 @@ public class HelloController {
         this.helloService = helloService;
     }
 
-    // 스프링 컨테이너가 빈 객체를 다 뒤져서 해당 URL을 처리한다.  -> 매핑 테이블을 만든다.
-
     @GetMapping("/hello")
     @ResponseBody
     public String getString(@RequestParam String name) {

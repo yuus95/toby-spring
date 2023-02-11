@@ -1,11 +1,9 @@
 package com.example.tobyspring;
 
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
-@Component
 public class MySpringApplication {
     public static void run(Class<?> mainClass, String[] args) {
         AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext() {
