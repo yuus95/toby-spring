@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
 
@@ -26,32 +25,11 @@ public class TobySpringApplication {
     }
 
     @Bean
-    public ServletWebServerFactory serverFactory() {
+    public ServletWebServerFactory servletWebServerFactory() {
         return new TomcatServletWebServerFactory();
     }
 
     public static void main(String[] args) {
-        // onRefresh
-        AnnotationConfigWebApplicationContext applicationContext = new AnnotationConfigWebApplicationContext() {
-            @Override
-            protected void onRefresh() {
-                super.onRefresh();
-
-                DispatcherServlet dispatcherServlet = this.getBean(DispatcherServlet.class);
-                ServletWebServerFactory webServer = this.getBean(TomcatServletWebServerFactory.class);
-
-                dispatcherServlet.setApplicationContext(this);
-
-                webServer.getWebServer(servletContext -> servletContext
-                        .addServlet("dispatcherServlet", dispatcherServlet)
-                        .addMapping("/*")
-                ).start();
-            }
-        };
-
-        // Register one or more component classes to be processed.
-        applicationContext.register(TobySpringApplication.class);
-
-        applicationContext.refresh();
+        MySpringApplication.run(TobySpringApplication.class, args);
     }
 }
