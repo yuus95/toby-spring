@@ -29,22 +29,22 @@ import java.io.IOException;
 public class TobySpringApplication {
 
     public static void main(String[] args) {
-        GenericWebApplicationContext applicationContext = new GenericWebApplicationContext();
+        // onRefresh
+        GenericWebApplicationContext applicationContext = new GenericWebApplicationContext() {
+            @Override
+            protected void onRefresh() {
+                super.onRefresh();
 
-        // 빈으로 등록하면  스프링 컨테이너에 등록된다.
-        // 빈으로 등록된 클래스들을 어덯게 의존성을 채워줄까?
-        //      -  컨테이너에서 찾아서 등록해준다.
+                ServletWebServerFactory webServer = new TomcatServletWebServerFactory();
+                webServer.getWebServer(servletContext -> servletContext.addServlet("dispatcherServlet",
+                        new DispatcherServlet(this)
+                ).addMapping("/*")).start();
+            }
+        };
 
         applicationContext.registerBean(HelloController.class);
         applicationContext.registerBean(SimpleHelloService.class);
+
         applicationContext.refresh();
-
-        ServletWebServerFactory webServer = new TomcatServletWebServerFactory();
-        webServer.getWebServer(servletContext -> {
-            servletContext.addServlet("dispatcherServlet",
-                    new DispatcherServlet(applicationContext)
-            ).addMapping("/*");
-        }).start();
-
     }
 }
