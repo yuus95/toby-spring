@@ -25,9 +25,7 @@ import java.io.IOException;
  * - 파라미터 바인딩을 직접 해줘야 하는가?
  * -
  */
-@SpringBootApplication
 public class TobySpringApplication {
-
     public static void main(String[] args) {
         // onRefresh
         GenericWebApplicationContext applicationContext = new GenericWebApplicationContext() {
