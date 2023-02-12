@@ -18,7 +18,7 @@ class HelloControllerTest {
     }
 
     @Test
-    public void helloTest() throws IllegalAccessException {
+    public void helloTest() {
         //given
         String test = helloController.getString("test");
         //when
@@ -30,11 +30,11 @@ class HelloControllerTest {
     public void failedHelloController() {
         Assertions.assertThatThrownBy(() -> {
             helloController.getString(null);
-        }).isInstanceOf(IllegalAccessException.class);
+        }).isInstanceOf(IllegalArgumentException.class);
 
         Assertions.assertThatThrownBy(() -> {
             helloController.getString("");
-        }).isInstanceOf(IllegalAccessException.class);
+        }).isInstanceOf(IllegalArgumentException.class);
     }
 
 }

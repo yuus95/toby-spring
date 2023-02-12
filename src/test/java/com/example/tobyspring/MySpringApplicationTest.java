@@ -16,6 +16,7 @@ class MySpringApplicationTest {
         ResponseEntity<String> result = testRestTemplate.getForEntity("http://localhost:8080/hello?name={name}", String.class, "Spring");
         //then
         Assertions.assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
+        Assertions.assertThat(result.getBody()).isEqualTo("*Hello Spring*");
     }
 
     @Test
