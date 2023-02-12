@@ -1,5 +1,6 @@
 package com.example.tobyspring;
 
+import com.example.tobyspring.config.MySpringApplication;
 import org.springframework.boot.SpringApplication;
 
 /**
