@@ -18,4 +18,14 @@ class MySpringApplicationTest {
         Assertions.assertThat(result.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
+    @Test
+    public void failedRestTest() {
+        //given
+        TestRestTemplate testRestTemplate = new TestRestTemplate();
+        //when
+        ResponseEntity<String> result = testRestTemplate.getForEntity("http://localhost:8080/hello?name=", String.class);
+        //then
+        Assertions.assertThat(result.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }
