@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 
 /**
  * 학습용 테스트를 이용해서 공부하면 좀 더 이해하기 쉽다.
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 @MyAutoConfiguration
 //@Conditional(TomcatServletWebServerConfig.TomcatCondition.class)
 @ConditionalMyOnClass("org.apache.catalina.startup.Tomcat")
+@Import(ServerProperties.class)
 public class TomcatServletWebServerConfig {
 
 
@@ -25,8 +27,6 @@ public class TomcatServletWebServerConfig {
     @ConditionalOnMissingBean
     public ServletWebServerFactory servletWebServerFactory(ServerProperties serverProperties) {
         TomcatServletWebServerFactory tomcatServletWebServerFactory = new TomcatServletWebServerFactory();
-        System.out.println("serverProperties.port" + serverProperties.getPort());
-        System.out.println("serverProperties.contextPath" + serverProperties.getContextPath());
         tomcatServletWebServerFactory.setContextPath(serverProperties.getContextPath());
         tomcatServletWebServerFactory.setPort(serverProperties.getPort());
         return tomcatServletWebServerFactory;
