@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.env.Environment;
 
+import java.util.Map;
+
 @MyAutoConfiguration
 public class PropertyPostProcessorConfig {
 
@@ -17,11 +19,15 @@ public class PropertyPostProcessorConfig {
             @Override
             public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
                 MyConfigurationProperties annotation = AnnotationUtils.findAnnotation(bean.getClass(), MyConfigurationProperties.class);
+
                 if (annotation == null) {
-                    return  null;
+                    return null;
                 }
 
-                return Binder.get(env).bindOrCreate("",bean.getClass());
+                Map<String, Object> annotationAttributes = AnnotationUtils.getAnnotationAttributes(annotation);
+                String prefix = (String) annotationAttributes.get("prefix");
+
+                return Binder.get(env).bindOrCreate(prefix, bean.getClass());
             }
         };
     }

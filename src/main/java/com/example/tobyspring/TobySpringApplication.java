@@ -1,10 +1,7 @@
 package com.example.tobyspring;
 
 import com.example.tobyspring.config.MySpringApplication;
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.core.env.Environment;
 
 
 /**
@@ -18,13 +15,13 @@ import org.springframework.core.env.Environment;
 @MySpringApplication
 public class TobySpringApplication {
 
-    @Bean
-    ApplicationRunner applicationRunner(Environment env) {
-        return args -> {
-            String property = env.getProperty("my.name");
-            System.out.println("property  " + property );
-        };
-    }
+//    @Bean
+//    ApplicationRunner applicationRunner(Environment env) {
+//        return args -> {
+//            String property = env.getProperty("my.name");
+//            System.out.println("property  " + property );
+//        };
+//    }
 
     public static void main(String[] args) {
         SpringApplication.run(TobySpringApplication.class, args);
