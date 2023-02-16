@@ -11,5 +11,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 //외부 패키지에 있는 Configuration들을 임포트할 수 있다.
 @Import(MyAutoConfigImportSelector.class)
-public @interface EnableAutoConfiguration {
+public @interface EnableMyAutoConfiguration {
 }

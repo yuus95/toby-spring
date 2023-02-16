@@ -12,6 +12,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Configuration
 @ComponentScan
-@EnableAutoConfiguration
+@EnableMyAutoConfiguration
 public @interface MySpringApplication {
 }

@@ -1,7 +1,6 @@
 package com.example.tobyspring.config.autoconfig;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.example.tobyspring.config.MyConfigurationProperties;
 
 /**
  * 빈 포스트 프로세서 - 빈 후처리기
@@ -9,8 +8,7 @@ import lombok.Setter;
  @Getter
  @Setter */
 
-@Getter
-@Setter
+
 @MyConfigurationProperties(prefix = "server")
 public class ServerProperties {
 //    @Value("${contextPath}")
@@ -18,5 +16,21 @@ public class ServerProperties {
 
 //    @Value("${port:8080}")
     private int port;
+
+    public String getContextPath() {
+        return contextPath;
+    }
+
+    public void setContextPath(String contextPath) {
+        this.contextPath = contextPath;
+    }
+
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
 }
 

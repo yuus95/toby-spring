@@ -1,4 +1,4 @@
-package com.example.tobyspring.config.autoconfig;
+package com.example.tobyspring.config;
 
 import org.springframework.stereotype.Component;
 

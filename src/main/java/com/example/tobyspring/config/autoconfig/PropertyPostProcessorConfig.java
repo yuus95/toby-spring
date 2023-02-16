@@ -1,6 +1,7 @@
 package com.example.tobyspring.config.autoconfig;
 
 import com.example.tobyspring.config.MyAutoConfiguration;
+import com.example.tobyspring.config.MyConfigurationProperties;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.context.properties.bind.Binder;
