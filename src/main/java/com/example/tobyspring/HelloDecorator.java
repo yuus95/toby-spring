@@ -32,4 +32,11 @@ public class HelloDecorator implements HelloService {
     public String sayHello(String name) {
         return "*" + helloService.sayHello(name) + "*";
     }
+
+    @Override
+    public int countOf(String name) {
+        return helloService.countOf(name);
+    }
+
+
 }

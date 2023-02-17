@@ -41,7 +41,6 @@ public class DataSourceConfig {
     @ConditionalOnMissingBean
     DataSource dataSource(MyDataSourceProperties properties) throws ClassNotFoundException {
         SimpleDriverDataSource dataSource = new SimpleDriverDataSource();
-        System.out.println("properties.getDriverClassName()" + properties.getDriverClassName());
         dataSource.setDriverClass((Class<? extends Driver>) Class.forName(properties.getDriverClassName()));
         dataSource.setUrl(properties.getUrl());
         dataSource.setUsername(properties.getUsername());
@@ -52,12 +51,14 @@ public class DataSourceConfig {
 
     @Bean
     // 데이터 소스 빈이 한개만 등록되어 있다면 그 빈을 가져와 사용하겠다
+    // 어노테이션을 사용할 때 클래스값 필수로 넣어줘야 한다. 넣지 않으면 대상 타겟은 오브젝트가 된다.)
     @ConditionalOnSingleCandidate(DataSource.class)
     @ConditionalOnMissingBean
     JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 
+    // Spring boot 에서 데이터소스에 잇는 트랜잭션 기능을 사용할 수 있도록 도와준다.
     @Bean
     @ConditionalOnSingleCandidate(DataSource.class)
     @ConditionalOnMissingBean

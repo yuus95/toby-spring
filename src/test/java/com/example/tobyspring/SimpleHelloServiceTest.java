@@ -8,8 +8,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * 고립된 테스트가 가능하다.
  */
@@ -20,12 +18,24 @@ import static org.junit.jupiter.api.Assertions.*;
 @interface UnitTest{
 
 }
+
 class SimpleHelloServiceTest {
     @UnitTest
     void simpleHelloService() {
-        SimpleHelloService helloService = new SimpleHelloService();
+        SimpleHelloService helloService = new SimpleHelloService(helloRepository);
         String result = helloService.sayHello("Test");
         Assertions.assertThat(result).isEqualTo("Hello Test");
 
     }
-}
+
+    private static HelloRepository helloRepository = new HelloRepository() {
+            @Override
+            public Hello findHello(String name) {
+                return null;
+            }
+
+            @Override
+            public void increaseCount(String name) {
+            }
+        };
+    }

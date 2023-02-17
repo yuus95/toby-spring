@@ -1,7 +1,6 @@
 package com.example.tobyspring;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,10 +12,12 @@ class HelloRepositoryJdbcTest {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    @BeforeEach
-    void init() {
-        jdbcTemplate.execute("create table if not exists hello(name varchar(50) primary key, count int)");
-    }
+
+//    PostConstruct 이용하여 초기부터 디비 설정
+//    @BeforeEach
+//    void init() {
+//        jdbcTemplate.execute("create table if not exists hello(name varchar(50) primary key, count int)");
+//    }
 
     @Test
     public void findHelloFailed() {
