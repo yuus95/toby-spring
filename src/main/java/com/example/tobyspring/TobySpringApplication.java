@@ -3,6 +3,7 @@ package com.example.tobyspring;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 
 import javax.servlet.ServletException;
@@ -27,13 +28,18 @@ public class TobySpringApplication {
         WebServer webServer = webServerFactory.getWebServer(servletContext -> servletContext.addServlet("hello", new HttpServlet() {
             @Override
             protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-                String name = req.getParameter("name");
+                if(req.getRequestURI().equals("/hello") && req.getMethod().equals(HttpMethod.GET.name())) {
+                    String name = req.getParameter("name");
+                    resp.setStatus(200);
+                    resp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+                    resp.getWriter().println("Hello Servlet " + name);
+                }
+                else{
+                    resp.setStatus(404);
+                }
 
-                resp.setStatus(200);
-                resp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-                resp.getWriter().println("Hello Servlet " + name);
             }
-        }).addMapping("/hello"));
+        }).addMapping("/*"));
 
         webServer.start();
     }
