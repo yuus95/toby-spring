@@ -15,6 +15,9 @@ import java.io.IOException;
 
 /**
  * 스프링 컨테이너를 생성하여 우리가 직접 컨트롤러를 생성하는 것이 아니라 컨테이너에게 요청을 해서 만들어준 컨트롤러를 가져와서 사용할 수 있도록 한다.
+ * 스프링 컨테이너는 어셈블러로서 객체들에게 필요한 의존성들을 주입할 수 있도록 도와준다.
+ * - 팩토리 메서드를 활용하여 빈 객체들을 생성하여 직접 주입할 수 있다,
+ * - 생성자 주입 방식을 이용하여 빈 객체가 생성될 때 주입해줄 수도 잇다.
  *
  */
 
@@ -27,6 +30,7 @@ public class TobySpringApplication {
          */
         GenericApplicationContext applicationContext = new GenericApplicationContext();
         applicationContext.registerBean(RestHelloController.class);
+        applicationContext.registerBean(SimpleHelloService.class);
         applicationContext.refresh();
 
         TomcatServletWebServerFactory webServerFactory = new TomcatServletWebServerFactory();
