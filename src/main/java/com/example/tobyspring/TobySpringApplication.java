@@ -39,7 +39,7 @@ import org.springframework.web.servlet.DispatcherServlet;
  *
  * @Configuration 어노테이션과 @Bean어노테이션을 활용하면
  * 자바 코드로 스프링 컨테이너에 빈들을 생성할 수 있다.
- * GenericWebApplicationContext 은 어노테이션으과 자바 코드로 구성된 스프링 구성 정보를 읽어 올 수 없다.
+ * GenericWebApplicationContext 은 어노테이션과 자바 코드로 구성된 스프링 구성 정보를 읽어 올 수 없다.
  * GenericWebApplicationContext -> AnnotationConfigWebApplicationContext 구현체로 변경해야한다.
  * - register 메소드를 활용하여 자바 구성정보를 갖고 있는 클래스를 등록할 수 있다.
  * - Register one or more component classes to be processed.
